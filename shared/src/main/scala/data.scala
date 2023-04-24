@@ -3,7 +3,8 @@ package vycoder
 given Conversion[Int, BigInt] with
   def apply(i: Int): BigInt = BigInt(i)
 
-class Data:
+case class Data():
+  def apply(): List[List[BigInt]] = getData()
   def getData(): List[List[BigInt]] =
     val data: String = """115,18,150,119,102,150
     166,1,205,168,170,107,70,17,42,179,129

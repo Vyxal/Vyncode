@@ -1,7 +1,7 @@
 package vycoder
 
-given Conversion[Int, BigInt] with
-  def apply(i: Int): BigInt = BigInt(i)
+given Conversion[Int, BigDecimal] with
+  def apply(i: Int): BigDecimal = BigDecimal(i)
 
 object Main:
   def main(args: Array[String]): Unit =

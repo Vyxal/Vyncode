@@ -32,9 +32,9 @@ class Predictions:
   ): ListBuffer[BigDecimal] => ListBuffer[BigDecimal] =
     val f = (lst: ListBuffer[BigDecimal]) => {
       var out: ListBuffer[BigDecimal] = ListBuffer.fill(256)(0)
-      for i <- (0 to maxDistance.toInt).reverse do
+      for i <- (0 until maxDistance.toInt).reverse do
         if i < lst.length then
-          out = positions(i.toInt)(lst.takeRight(i - 1).head.toInt)
+          out = positions(i.toInt)(lst(lst.length - i - 1).toInt)
             .zip(out)
             .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
         else if i == 0 then

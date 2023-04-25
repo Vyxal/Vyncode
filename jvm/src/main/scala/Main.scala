@@ -25,7 +25,7 @@ object Main:
     // print(f"input size: {len(int_lst)*8} bits ({len(int_lst)} bytes), output size: {len(bin_lst)} bits ({len(bin_lst)/8} bytes), ratio: {len(bin_lst)/(len(int_lst)*8)}")
 
     println(
-      s"input size: ${program.length * 8} bits (${program.length} bytes), output size: ${encoded.length} bits (${encoded.length / 8} bytes), ratio: ${encoded.length / (program.length * 8)}"
+      s"input size: ${program.length * 8} bits (${program.length} bytes), output size: ${encoded.length} bits (${encoded.length / 8f} bytes), ratio: ${encoded.length / (program.length * 8f)}"
     )
 
     println(encoded.mkString)

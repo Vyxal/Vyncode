@@ -7,10 +7,7 @@ case class Coder():
     // Scala equivalent of the following python:
     // return [int(bool(x & (2**n))) for n in reversed(range(len))]
 
-    var out: ListBuffer[Int] = ListBuffer()
-    for i <- (0 to len).reverse do
-      if (x & (math.pow(2, i)).intValue()) == 0 then out += 0 else out += 1
-    out
+    len - 1 to 0 by -1 map (i => x >> i & 1)
 
   def fromBin(x: ListBuffer[Int]): BigDecimal =
     // Scala equivalent on the following python:

@@ -33,8 +33,8 @@ case class Coder():
         minBits - (top + 1 - bottom).bitLength + 1
       if bitsToAdd < 0 then bitsToAdd = 0
 
-      bottom *= bitsToAdd.<<(1.toInt)
-      top = (top + 1) * bitsToAdd.<<(1.toInt) - 1
+      bottom *= bitsToAdd.>>(1.toInt)
+      top = (top + 1) * bitsToAdd.>>(1.toInt) - 1
 
       bits += bitsToAdd
 
@@ -58,11 +58,11 @@ case class Coder():
       out ++= binList(top.toInt, bitsToStore.toInt).slice(0, bitsToStore.toInt)
 
       bits = differentBits
-      bottom &= bits.<<(1.toInt) - 1
-      top &= bits.<<(1.toInt) - 1
+      bottom &= bits.>>(1.toInt) - 1
+      top &= bits.>>(1.toInt) - 1
 
     if bottom == 0 then
-      if top + 1 != bits.<<(1) then out += 0
+      if top + 1 != bits.>>(1.toInt) then out += 0
     else
       out += 1
       for i <- 0 until (bits - (top - bottom + 1)).bitLength do out += 0

@@ -8,6 +8,7 @@ given Conversion[Int, BigDecimal] with
 
 object Main:
   def main(args: Array[String]): Unit =
+    println(4.>>(1))
     val coder = Coder()
     val predictionObj = Predictions()
     predictionObj.initalise()

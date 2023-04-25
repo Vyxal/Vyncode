@@ -19,7 +19,7 @@ class Predictions:
     for row <- programs do
       for i <- row.indices do
         frequencies(row(i.toInt).toInt) += 1
-        for j <- 0 to maxDistance.toInt do
+        for j <- 0 until maxDistance.toInt do
           if i - j - 1 >= 0 then
             positions(j.toInt)((i - j - 1).toInt)(row(i.toInt).toInt) += 1
           else positions(j.toInt)(256)(row(i.toInt).toInt) += 1
@@ -34,7 +34,7 @@ class Predictions:
       var out: ListBuffer[BigDecimal] = ListBuffer.fill(256)(0)
       for i <- (0 to maxDistance.toInt).reverse do
         if i < lst.length then
-          out = positions(i.toInt)(lst((i - 1).toInt).toInt)
+          out = positions(i.toInt)(lst.takeRight(i - 1).head.toInt)
             .zip(out)
             .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
         else if i == 0 then

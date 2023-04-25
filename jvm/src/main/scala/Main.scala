@@ -28,4 +28,4 @@ object Main:
       s"input size: ${program.length * 8} bits (${program.length} bytes), output size: ${encoded.length} bits (${encoded.length / 8} bytes), ratio: ${encoded.length / (program.length * 8)}"
     )
 
-    println(Codepage.intToVyxal(encoded).mkString)
+    println(encoded.mkString)

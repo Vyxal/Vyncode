@@ -16,13 +16,12 @@ case class Coder():
 
   // TODO Avoid doing bits.toInt just in case it exceeds Int bounds
   /** Raise 2 to the power of `bits` */
-  def pow2(bits: BigInt): BigInt =
-    BigInt(1) << bits.toInt
+  def pow2(bits: Int): BigInt = BigInt(1 << bits.toInt)
 
   def encode(
       program: Seq[Int],
       prediction: Seq[BigDecimal] => ListBuffer[BigDecimal],
-      minBits: BigInt = 16
+      minBits: Int = 16
   ): Seq[Int] =
     val out = ListBuffer[Int]()
 
@@ -32,7 +31,7 @@ case class Coder():
     var bits: BigInt = 0
 
     for i <- program.indices do
-      var bitsToAdd: BigInt =
+      var bitsToAdd: Int =
         minBits - (top + 1 - bottom).bitLength + 1
       if bitsToAdd < 0 then bitsToAdd = 0
 
@@ -51,6 +50,8 @@ case class Coder():
 
       intedRanges.insert(0, bottom)
 
+      // println(intedRanges)
+
       bottom = intedRanges(program(i).toInt)
       top = intedRanges(program(i).toInt + 1) - 1
 
@@ -67,15 +68,15 @@ case class Coder():
       // println(s"out: $out")
 
       bits = differentBits
-      bottom &= pow2(bits) - 1
-      top &= pow2(bits) - 1
+      bottom &= pow2(bits.toInt) - 1
+      top &= pow2(bits.toInt) - 1
 
       // println(
       //  s"AFTER: bottom: $bottom, top: $top, bits: $bits, bits_to_store: $bitsToStore"
       // )
 
     if bottom == 0 then
-      if top + 1 != pow2(bits) then out += 0
+      if top + 1 != pow2(bits.toInt) then out += 0
     else
       out += 1
       for i <- 0 until (bits - (top - bottom + 1)).bitLength do out += 0

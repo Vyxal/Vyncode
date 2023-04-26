@@ -13,7 +13,7 @@ object Main:
     val predictionObj = Predictions()
     predictionObj.initalise()
 
-    val predicitionFunction = predictionObj.weightedPositions(
+    val predictionFunction = predictionObj.weightedPositions(
       (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),
       32,
       128
@@ -21,7 +21,7 @@ object Main:
     // Read program from stdin
 
     val program = Codepage.vyxalToInt(StdIn.readLine())
-    val encoded = coder.encode(program, predicitionFunction)
+    val encoded = coder.encode(program, predictionFunction)
 
     // print(f"input size: {len(int_lst)*8} bits ({len(int_lst)} bytes), output size: {len(bin_lst)} bits ({len(bin_lst)/8} bytes), ratio: {len(bin_lst)/(len(int_lst)*8)}")
 

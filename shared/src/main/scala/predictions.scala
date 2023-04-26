@@ -29,24 +29,20 @@ class Predictions:
       distanceWeight: BigDecimal => BigDecimal,
       alpha: BigDecimal,
       beta: BigDecimal
-  ): ListBuffer[BigDecimal] => ListBuffer[BigDecimal] =
-    val f = (lst: ListBuffer[BigDecimal]) => {
-      var out: ListBuffer[BigDecimal] = ListBuffer.fill(256)(0)
-      for i <- (0 until maxDistance.toInt).reverse do
-        if i < lst.length then
-          out = positions(i.toInt)(lst(lst.length - i - 1).toInt)
-            .zip(out)
-            .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
-        else if i == 0 then
-          out = positions(i.toInt)(256)
-            .zip(out)
-            .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
+  )(lst: Seq[BigDecimal]): ListBuffer[BigDecimal] =
+    var out: ListBuffer[BigDecimal] = ListBuffer.fill(256)(0)
+    for i <- (0 until maxDistance.toInt).reverse do
+      if i < lst.length then
+        out = positions(i.toInt)(lst(lst.length - i - 1).toInt)
+          .zip(out)
+          .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
+      else if i == 0 then
+        out = positions(i.toInt)(256)
+          .zip(out)
+          .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
 
-      out = out
-        .zip(frequencies)
-        .map((x, y) => x * (frequencies.sum + 256 * alpha) + beta * (y + alpha))
+    out = out
+      .zip(frequencies)
+      .map((x, y) => x * (frequencies.sum + 256 * alpha) + beta * (y + alpha))
 
-      out
-
-    }
-    return f
+    out

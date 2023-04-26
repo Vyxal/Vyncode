@@ -19,8 +19,8 @@ object Codepage:
   codepage += "≠⁼ƒɖ∪∩⊍£¥⇧⇩ǍǎǏǐǑ"
   codepage += "ǒǓǔ⁽‡≬⁺↵⅛¼¾Π„‟"
 
-  def vyxalToInt(s: String): ListBuffer[Int] =
-    s.map(codepage.indexOf(_)).to(ListBuffer)
+  def vyxalToInt(s: String): Seq[Int] =
+    s.map(codepage.indexOf(_))
 
-  def intToVyxal(lst: ListBuffer[Int]): String =
+  def intToVyxal(lst: Seq[Int]): String =
     lst.map(codepage(_)).mkString("")

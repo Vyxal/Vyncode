@@ -16,7 +16,8 @@ case class Coder():
 
   // TODO Avoid doing bits.toInt just in case it exceeds Int bounds
   /** Raise 2 to the power of `bits` */
-  def pow2(bits: BigInt): BigInt = BigInt(1) << bits.toInt
+  def pow2(bits: BigInt): BigInt =
+    BigInt(1) << bits.toInt
 
   def encode(
       program: Seq[Int],
@@ -44,7 +45,6 @@ case class Coder():
         prediction(program.map(BigDecimal(_)).slice(0, i))
           .scanLeft(BigDecimal(0))(_ + _)
           .drop(1) // cumulative sum
-
       val intedRanges = ranges.map(y =>
         y.toBigInt * (top + 1 - bottom) / ranges.last.toBigInt + bottom
       )
@@ -57,16 +57,27 @@ case class Coder():
       val differentBits = (top ^ bottom).bitLength
       val bitsToStore = bits - differentBits
 
-      out ++= binList(top.toInt, bitsToStore.toInt).slice(0, bitsToStore.toInt)
+      // println(
+      //  s"bottom: $bottom, top: $top, bits: $bits, bits_to_store: $bitsToStore"
+      // )
+
+      // println(binList(top.toInt, bits.toInt))
+      out ++= binList(top.toInt, bits.toInt).slice(0, bitsToStore.toInt)
+
+      // println(s"out: $out")
 
       bits = differentBits
       bottom &= pow2(bits) - 1
       top &= pow2(bits) - 1
+
+      // println(
+      //  s"AFTER: bottom: $bottom, top: $top, bits: $bits, bits_to_store: $bitsToStore"
+      // )
 
     if bottom == 0 then
       if top + 1 != pow2(bits) then out += 0
     else
       out += 1
       for i <- 0 until (bits - (top - bottom + 1)).bitLength do out += 0
-    
+
     out.toSeq

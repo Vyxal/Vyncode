@@ -6217,6 +6217,18 @@ function $p_sc_IterableOnceOps__loop$1__I__I__O__F2__sc_IndexedSeq__O($thiz, at,
     }
   }
 }
+function $is_sc_IterableOnceOps(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.sc_IterableOnceOps)))
+}
+function $as_sc_IterableOnceOps(obj) {
+  return (($is_sc_IterableOnceOps(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.collection.IterableOnceOps"))
+}
+function $isArrayOf_sc_IterableOnceOps(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.sc_IterableOnceOps)))
+}
+function $asArrayOf_sc_IterableOnceOps(obj, depth) {
+  return (($isArrayOf_sc_IterableOnceOps(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.collection.IterableOnceOps;", depth))
+}
 /** @constructor */
 function $c_sc_Iterator$ConcatIteratorCell(head, tail) {
   this.sc_Iterator$ConcatIteratorCell__f_head = null;
@@ -8352,6 +8364,16 @@ $c_Lvycoder_Codepage$.prototype.vyxalToInt__T__sci_Seq = (function(s) {
   };
   return new $c_sci_ArraySeq$ofRef(dst)
 });
+$c_Lvycoder_Codepage$.prototype.intToVyxal__sci_Seq__T = (function(lst) {
+  var this$5 = $n($as_sc_IterableOnceOps($n(lst).map__F1__O(new $c_sjsr_AnonFunction1(((_$2) => {
+    var _$2$1 = $uI(_$2);
+    $m_sc_StringOps$();
+    var x = this.Lvycoder_Codepage$__f_codepage;
+    var this$4 = $n(x);
+    return $bC($charAt(this$4, _$2$1))
+  })))));
+  return $f_sc_IterableOnceOps__mkString__T__T__T__T(this$5, "", "", "")
+});
 var $d_Lvycoder_Codepage$ = new $TypeData().initClass({
   Lvycoder_Codepage$: 0
 }, false, "vycoder.Codepage$", {
@@ -8409,10 +8431,10 @@ $c_Lvycoder_JSVycoder$.prototype.encode__T__T = (function(code) {
       if ((bitsToAdd < 0)) {
         bitsToAdd = 0
       };
-      var ev$1 = $n($as_s_math_BigInt(elem$3)).$times__s_math_BigInt__s_math_BigInt(coder.pow2__I__s_math_BigInt(bitsToAdd));
+      var ev$1 = $n($as_s_math_BigInt(elem$3)).$times__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigDecimal(bitsToAdd)).toBigInt__s_math_BigInt());
       elem$3 = ev$1;
       ev$1 = null;
-      var ev$2 = $n($n($n($as_s_math_BigInt(elem$1)).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1))).$times__s_math_BigInt__s_math_BigInt(coder.pow2__I__s_math_BigInt(bitsToAdd))).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1));
+      var ev$2 = $n($n($n($as_s_math_BigInt(elem$1)).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1))).$times__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigDecimal(bitsToAdd)).toBigInt__s_math_BigInt())).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1));
       elem$1 = ev$2;
       ev$2 = null;
       var $$x1 = $n($as_s_math_BigInt(elem$5));
@@ -8491,12 +8513,12 @@ $c_Lvycoder_JSVycoder$.prototype.encode__T__T = (function(code) {
       ev$6 = null;
       var $$x5 = $n($as_s_math_BigInt(elem$3));
       var this$44 = $n($as_s_math_BigInt(elem$5));
-      var ev$7 = $n($$x5).$amp__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigInt(this$44.intValue__I())).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
+      var ev$7 = $n($$x5).$amp__s_math_BigInt__s_math_BigInt($n($n(coder.pow2__I__s_math_BigDecimal(this$44.intValue__I())).toBigInt__s_math_BigInt()).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
       elem$3 = ev$7;
       ev$7 = null;
       var $$x6 = $n($as_s_math_BigInt(elem$1));
       var this$46 = $n($as_s_math_BigInt(elem$5));
-      var ev$8 = $n($$x6).$amp__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigInt(this$46.intValue__I())).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
+      var ev$8 = $n($$x6).$amp__s_math_BigInt__s_math_BigInt($n($n(coder.pow2__I__s_math_BigDecimal(this$46.intValue__I())).toBigInt__s_math_BigInt()).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
       elem$1 = ev$8;
       ev$8 = null;
       if ((i === scala$collection$immutable$Range$$lastElement)) {
@@ -8507,10 +8529,10 @@ $c_Lvycoder_JSVycoder$.prototype.encode__T__T = (function(code) {
   };
   var xn = $as_s_math_BigInt(elem$3);
   if ($m_sr_BoxesRunTime$().equalsNumNum__jl_Number__jl_Number__Z(xn, 0)) {
-    var x$2 = $n($as_s_math_BigInt(elem$1)).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1));
+    var xn$1 = $n($as_s_math_BigInt(elem$1)).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1));
     var this$49 = $n($as_s_math_BigInt(elem$5));
-    var x$2$1 = coder.pow2__I__s_math_BigInt(this$49.intValue__I());
-    if ((!((x$2 === null) ? (x$2$1 === null) : $n(x$2).equals__O__Z(x$2$1)))) {
+    var yn = coder.pow2__I__s_math_BigDecimal(this$49.intValue__I());
+    if ((!$m_sr_BoxesRunTime$().equalsNumNum__jl_Number__jl_Number__Z(xn$1, yn))) {
       var this$50 = $n(out);
       this$50.addOne__O__scm_ListBuffer(0)
     }
@@ -8545,9 +8567,201 @@ $c_Lvycoder_JSVycoder$.prototype.encode__T__T = (function(code) {
   var this$63 = $n(encoded);
   return $f_sc_IterableOnceOps__mkString__T__T__T__T(this$63, "", "", "")
 });
+$c_Lvycoder_JSVycoder$.prototype.decode__T__T = (function(bits) {
+  var coder = new $c_Lvycoder_Coder();
+  var predictionObj = new $c_Lvycoder_Predictions();
+  predictionObj.initalise__V();
+  var this$3 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+  var alpha$2 = this$3.apply__I__Ljava_math_MathContext__s_math_BigDecimal(32, this$3.s_math_BigDecimal$__f_defaultMathContext);
+  var this$5 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+  var beta$2 = this$5.apply__I__Ljava_math_MathContext__s_math_BigDecimal(128, this$5.s_math_BigDecimal$__f_defaultMathContext);
+  $m_sc_StringOps$();
+  var this$8 = $n(bits);
+  var len = this$8.length;
+  var dst = new $ac_O(len);
+  var i = 0;
+  while ((i < len)) {
+    var $$x2 = $n(dst);
+    var $$x1 = i;
+    var this$9 = $n(bits);
+    var index = i;
+    var arg1 = $charAt(this$9, index);
+    var this$12 = $m_jl_Character$();
+    var codePoint = arg1;
+    $$x2.set($$x1, this$12.digitWithValidRadix__I__I__I(codePoint, 36));
+    i = ((1 + i) | 0)
+  };
+  var this$13 = new $c_sci_ArraySeq$ofRef(dst);
+  var elems = $m_sr_ScalaRunTime$().wrapIntArray__AI__sci_ArraySeq(new $ac_I(new Int32Array([])));
+  var out = new $c_scm_ListBuffer().scala$collection$mutable$ListBuffer$$freshFrom__sc_IterableOnce__scm_ListBuffer(elems);
+  var elem = $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(0);
+  var elem$1 = null;
+  elem$1 = elem;
+  var elem$2 = $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(0);
+  var elem$3 = null;
+  elem$3 = elem$2;
+  var bits$1 = $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(0);
+  var elem$4 = $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(0);
+  var elem$5 = null;
+  elem$5 = elem$4;
+  var i$1 = $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(0);
+  var consumed = $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(0);
+  while (true) {
+    var this$25 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+    var x = $n($n($as_s_math_BigInt(elem$1)).$minus__s_math_BigInt__s_math_BigInt($as_s_math_BigInt(elem$3))).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1));
+    var this$29 = $n(this$25.exact__s_math_BigInt__s_math_BigDecimal(x));
+    var $$x14 = i$1;
+    var i$2 = this$13.length__I();
+    var this$28 = $n($n($n($$x14).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(i$2))).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
+    var that = coder.pow2__I__s_math_BigDecimal(this$28.intValue__I());
+    if ($f_s_math_Ordered__$greater__O__Z(this$29, that)) {
+      var bitsToAdd = ((17 - $n($n($n($as_s_math_BigInt(elem$1)).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1))).$minus__s_math_BigInt__s_math_BigInt($as_s_math_BigInt(elem$3))).bitLength__I()) | 0);
+      if ((bitsToAdd < 0)) {
+        bitsToAdd = 0
+      };
+      var ev$9 = $n($as_s_math_BigInt(elem$3)).$times__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigDecimal(bitsToAdd)).toBigInt__s_math_BigInt());
+      elem$3 = ev$9;
+      ev$9 = null;
+      var ev$10 = $n($n($n($as_s_math_BigInt(elem$1)).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1))).$times__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigDecimal(bitsToAdd)).toBigInt__s_math_BigInt())).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1));
+      elem$1 = ev$10;
+      ev$10 = null;
+      var i$3 = this$13.length__I();
+      var $$x3 = $n($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(i$3)).$minus__s_math_BigInt__s_math_BigInt(i$1);
+      var i$4 = bitsToAdd;
+      var l = $n($n($$x3).min__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(i$4))).max__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(0));
+      var $$x5 = $as_s_math_BigInt(elem$5);
+      var this$36 = $n(l);
+      var $$x4 = $n($n($$x5).$times__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigDecimal(this$36.intValue__I())).toBigInt__s_math_BigInt()));
+      var this$37 = $n(i$1);
+      var from = this$37.intValue__I();
+      var this$38 = $n($n(i$1).$plus__s_math_BigInt__s_math_BigInt(l));
+      var until = this$38.intValue__I();
+      var ev$11 = $n($$x4).$plus__s_math_BigInt__s_math_BigInt($n(coder.fromBin__sci_Seq__s_math_BigDecimal(this$13.slice__I__I__sci_ArraySeq(from, until))).toBigInt__s_math_BigInt());
+      elem$5 = ev$11;
+      ev$11 = null;
+      var $$x6 = $n($as_s_math_BigInt(elem$5));
+      var i$5 = bitsToAdd;
+      var this$40 = $n($n($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(i$5)).$minus__s_math_BigInt__s_math_BigInt(l));
+      var ev$12 = $n($$x6).$times__s_math_BigInt__s_math_BigInt($n(coder.pow2__I__s_math_BigDecimal(this$40.intValue__I())).toBigInt__s_math_BigInt());
+      elem$5 = ev$12;
+      ev$12 = null;
+      var $$x7 = $n(i$1);
+      var i$6 = bitsToAdd;
+      i$1 = $n($$x7).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(i$6));
+      var $$x8 = $n(bits$1);
+      var i$7 = bitsToAdd;
+      bits$1 = $n($$x8).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(i$7));
+      var this$43 = $n(out);
+      var arg1$1 = $n($m_sci_Seq$().from__sc_IterableOnce__sci_Seq(this$43)).map__F1__O(new $c_sjsr_AnonFunction1(((_$4) => {
+        var _$4$1 = $uI(_$4);
+        var this$44 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+        return this$44.apply__I__Ljava_math_MathContext__s_math_BigDecimal(_$4$1, this$44.s_math_BigDecimal$__f_defaultMathContext)
+      })));
+      var lst = $as_sci_Seq(arg1$1);
+      var this$49 = $n(predictionObj.weightedPositions__F1__s_math_BigDecimal__s_math_BigDecimal__sci_Seq__scm_ListBuffer(new $c_sjsr_AnonFunction1(((x$1) => {
+        var x$2 = $as_s_math_BigDecimal(x$1);
+        var this$46 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+        var $$x9 = $n(this$46.exact__T__s_math_BigDecimal("0.5"));
+        var this$47 = $n(x$2);
+        return $n($$x9).pow__I__s_math_BigDecimal($n(this$47.s_math_BigDecimal__f_bigDecimal).intValue__I())
+      })), alpha$2, beta$2, lst));
+      var this$48 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+      var z = this$48.apply__I__Ljava_math_MathContext__s_math_BigDecimal(0, this$48.s_math_BigDecimal$__f_defaultMathContext);
+      var b = $ct_scm_GrowableBuilder__scm_Growable__(new $c_scm_GrowableBuilder(), new $c_scm_ListBuffer());
+      $f_scm_Builder__sizeHint__sc_IterableOnce__I__V(b, this$49, 0);
+      var acc = z;
+      var elem$6 = acc;
+      b.addOne__O__scm_GrowableBuilder(elem$6);
+      var it = this$49.iterator__sc_Iterator();
+      while ($n(it).hasNext__Z()) {
+        var arg1$2 = acc;
+        var arg2 = $n(it).next__O();
+        var _$5 = $as_s_math_BigDecimal(arg1$2);
+        var _$6 = $as_s_math_BigDecimal(arg2);
+        acc = $n(_$5).$plus__s_math_BigDecimal__s_math_BigDecimal(_$6);
+        var elem$7 = acc;
+        b.addOne__O__scm_GrowableBuilder(elem$7)
+      };
+      var ranges = $as_scm_ListBuffer($n($as_sc_IterableOps(b.scm_GrowableBuilder__f_elems)).drop__I__O(1));
+      var this$51 = $n(ranges);
+      var b$1 = $ct_scm_GrowableBuilder__scm_Growable__(new $c_scm_GrowableBuilder(), new $c_scm_ListBuffer());
+      var it$1 = this$51.iterator__sc_Iterator();
+      while ($n(it$1).hasNext__Z()) {
+        var arg1$3 = $n(it$1).next__O();
+        var y = $as_s_math_BigDecimal(arg1$3);
+        var elem$8 = $n($n($n($n(y).toBigInt__s_math_BigInt()).$times__s_math_BigInt__s_math_BigInt($n($n($as_s_math_BigInt(elem$1)).$plus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1))).$minus__s_math_BigInt__s_math_BigInt($as_s_math_BigInt(elem$3)))).$div__s_math_BigInt__s_math_BigInt($n($as_s_math_BigDecimal($n(ranges).last__O())).toBigInt__s_math_BigInt())).$plus__s_math_BigInt__s_math_BigInt($as_s_math_BigInt(elem$3));
+        b$1.addOne__O__scm_GrowableBuilder(elem$8)
+      };
+      var intedRanges = $as_scm_ListBuffer(b$1.scm_GrowableBuilder__f_elems);
+      var this$54 = $n(ranges);
+      var end = this$54.scm_ListBuffer__f_len;
+      var isEmpty = (end <= 0);
+      var scala$collection$immutable$Range$$lastElement = (((-1) + end) | 0);
+      _return: {
+        var it$2 = new $c_sci_RangeIterator(0, 1, scala$collection$immutable$Range$$lastElement, isEmpty);
+        while (it$2.sci_RangeIterator__f__hasNext) {
+          var a = it$2.next__I();
+          var this$58 = $n(intedRanges);
+          var this$59 = $n(this$58.scm_ListBuffer__f_first);
+          var this$60 = $n($as_s_math_Ordered($f_sc_LinearSeqOps__apply__I__O(this$59, a)));
+          var that$1 = $as_s_math_BigInt(elem$5);
+          if ($f_s_math_Ordered__$greater__O__Z(this$60, that$1)) {
+            var $$x10 = new $c_s_Some(a);
+            break _return
+          }
+        };
+        var $$x10 = $m_s_None$()
+      };
+      var x$3 = $uI($$x10.get__O());
+      var this$61 = $n(out);
+      this$61.addOne__O__scm_ListBuffer(x$3);
+      $n(intedRanges).insert__I__O__V(0, $as_s_math_BigInt(elem$3));
+      var this$62 = $n(intedRanges);
+      var this$63 = $n(this$62.scm_ListBuffer__f_first);
+      var ev$13 = $as_s_math_BigInt($f_sc_LinearSeqOps__apply__I__O(this$63, x$3));
+      elem$3 = ev$13;
+      ev$13 = null;
+      var this$64 = $n(intedRanges);
+      var i$8 = ((1 + x$3) | 0);
+      var this$65 = $n(this$64.scm_ListBuffer__f_first);
+      var ev$14 = $n($as_s_math_BigInt($f_sc_LinearSeqOps__apply__I__O(this$65, i$8))).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1));
+      elem$1 = ev$14;
+      ev$14 = null;
+      var differentBits = $n($n($as_s_math_BigInt(elem$1)).$up__s_math_BigInt__s_math_BigInt($as_s_math_BigInt(elem$3))).bitLength__I();
+      consumed = $n(consumed).$plus__s_math_BigInt__s_math_BigInt($n(bits$1).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(differentBits)));
+      bits$1 = $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(differentBits);
+      var $$x11 = $n($as_s_math_BigInt(elem$3));
+      var this$69 = $n(bits$1);
+      var ev$15 = $n($$x11).$amp__s_math_BigInt__s_math_BigInt($n($n(coder.pow2__I__s_math_BigDecimal(this$69.intValue__I())).toBigInt__s_math_BigInt()).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
+      elem$3 = ev$15;
+      ev$15 = null;
+      var $$x12 = $n($as_s_math_BigInt(elem$1));
+      var this$71 = $n(bits$1);
+      var ev$16 = $n($$x12).$amp__s_math_BigInt__s_math_BigInt($n($n(coder.pow2__I__s_math_BigDecimal(this$71.intValue__I())).toBigInt__s_math_BigInt()).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
+      elem$1 = ev$16;
+      ev$16 = null;
+      var $$x13 = $n($as_s_math_BigInt(elem$5));
+      var this$73 = $n(bits$1);
+      var ev$17 = $n($$x13).$amp__s_math_BigInt__s_math_BigInt($n($n(coder.pow2__I__s_math_BigDecimal(this$73.intValue__I())).toBigInt__s_math_BigInt()).$minus__s_math_BigInt__s_math_BigInt($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)));
+      elem$5 = ev$17;
+      ev$17 = null
+    } else {
+      break
+    }
+  };
+  var this$75 = $n(out);
+  var decoded = $m_sci_Seq$().from__sc_IterableOnce__sci_Seq(this$75);
+  $m_sc_StringOps$();
+  var x$4 = $m_Lvycoder_Codepage$().intToVyxal__sci_Seq__T(decoded);
+  return x$4
+});
 $c_Lvycoder_JSVycoder$.prototype.encode = (function(arg) {
   var prep0 = $as_T(arg);
   return this.encode__T__T(prep0)
+});
+$c_Lvycoder_JSVycoder$.prototype.decode = (function(arg) {
+  var prep0 = $as_T(arg);
+  return this.decode__T__T(prep0)
 });
 var $d_Lvycoder_JSVycoder$ = new $TypeData().initClass({
   Lvycoder_JSVycoder$: 0
@@ -10693,6 +10907,9 @@ $c_s_math_BigDecimal$.prototype.exact__Ljava_math_BigDecimal__s_math_BigDecimal 
   };
   return new $c_s_math_BigDecimal(repr, mc)
 });
+$c_s_math_BigDecimal$.prototype.exact__s_math_BigInt__s_math_BigDecimal = (function(bi) {
+  return this.exact__Ljava_math_BigDecimal__s_math_BigDecimal($ct_Ljava_math_BigDecimal__Ljava_math_BigInteger__(new $c_Ljava_math_BigDecimal(), $n(bi).bigInteger__Ljava_math_BigInteger()))
+});
 $c_s_math_BigDecimal$.prototype.exact__T__s_math_BigDecimal = (function(s) {
   return this.exact__Ljava_math_BigDecimal__s_math_BigDecimal($ct_Ljava_math_BigDecimal__T__(new $c_Ljava_math_BigDecimal(), s))
 });
@@ -10789,6 +11006,9 @@ $c_s_math_BigInt$.prototype.apply__J__s_math_BigInt = (function(l) {
     return (((l.RTLong__f_lo === 0) && (l.RTLong__f_hi === (-2147483648))) ? this.s_math_BigInt$__f_longMinValue : $ct_s_math_BigInt__Ljava_math_BigInteger__J__(new $c_s_math_BigInt(), null, l))
   }
 });
+$c_s_math_BigInt$.prototype.apply__T__I__s_math_BigInt = (function(x, radix) {
+  return this.apply__Ljava_math_BigInteger__s_math_BigInt($ct_Ljava_math_BigInteger__T__I__(new $c_Ljava_math_BigInteger(), x, radix))
+});
 $c_s_math_BigInt$.prototype.apply__Ljava_math_BigInteger__s_math_BigInt = (function(x) {
   var this$1 = $n(x);
   if (($m_Ljava_math_BitLevel$().bitLength__Ljava_math_BigInteger__I(this$1) <= 63)) {
@@ -10854,6 +11074,27 @@ var $d_s_math_Integral$IntegralOps = new $TypeData().initClass({
   O: 1
 });
 $c_s_math_Integral$IntegralOps.prototype.$classData = $d_s_math_Integral$IntegralOps;
+function $f_s_math_Ordered__$greater__O__Z($thiz, that) {
+  return ($thiz.compare__O__I(that) > 0)
+}
+function $f_s_math_Ordered__$less$eq__O__Z($thiz, that) {
+  return ($thiz.compare__O__I(that) <= 0)
+}
+function $f_s_math_Ordered__$greater$eq__O__Z($thiz, that) {
+  return ($thiz.compare__O__I(that) >= 0)
+}
+function $is_s_math_Ordered(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.s_math_Ordered)))
+}
+function $as_s_math_Ordered(obj) {
+  return (($is_s_math_Ordered(obj) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.math.Ordered"))
+}
+function $isArrayOf_s_math_Ordered(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.s_math_Ordered)))
+}
+function $asArrayOf_s_math_Ordered(obj, depth) {
+  return (($isArrayOf_s_math_Ordered(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lscala.math.Ordered;", depth))
+}
 /** @constructor */
 function $c_s_package$$anon$1() {
   /*<skip>*/
@@ -14736,8 +14977,30 @@ $c_Lvycoder_Coder.prototype.binList__s_math_BigInt__I__sci_Seq = (function(x, le
   };
   return $as_sci_IndexedSeq($n(b).result__O())
 });
-$c_Lvycoder_Coder.prototype.pow2__I__s_math_BigInt = (function(bits) {
-  return $n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt((1 << bits))
+$c_Lvycoder_Coder.prototype.fromBin__sci_Seq__s_math_BigDecimal = (function(x) {
+  if (($n(x).length__I() === 0)) {
+    var this$2 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+    return this$2.apply__I__Ljava_math_MathContext__s_math_BigDecimal(0, this$2.s_math_BigDecimal$__f_defaultMathContext)
+  } else {
+    var this$4 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+    var $$x1 = $n($m_s_package$().BigInt__s_math_BigInt$());
+    var this$3 = $n(x);
+    var x$1 = $n($$x1).apply__T__I__s_math_BigInt($f_sc_IterableOnceOps__mkString__T__T__T__T(this$3, "", "", ""), 2);
+    return this$4.exact__s_math_BigInt__s_math_BigDecimal(x$1)
+  }
+});
+$c_Lvycoder_Coder.prototype.pow2__I__s_math_BigDecimal = (function(bits) {
+  if ((bits >= 0)) {
+    var this$1 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+    var x = $n($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)).$less$less__I__s_math_BigInt(bits);
+    return this$1.exact__s_math_BigInt__s_math_BigDecimal(x)
+  } else {
+    var this$2 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+    var $$x1 = $n(this$2.decimal__D__Ljava_math_MathContext__s_math_BigDecimal(1.0, this$2.s_math_BigDecimal$__f_defaultMathContext));
+    var this$3 = $n($m_s_package$().BigDecimal__s_math_BigDecimal$());
+    var x$1 = $n($n($m_s_package$().BigInt__s_math_BigInt$()).apply__I__s_math_BigInt(1)).$less$less__I__s_math_BigInt(((-bits) | 0));
+    return $n($$x1).$div__s_math_BigDecimal__s_math_BigDecimal(this$3.exact__s_math_BigInt__s_math_BigDecimal(x$1))
+  }
 });
 function $as_Lvycoder_Coder(obj) {
   return (((obj instanceof $c_Lvycoder_Coder) || (obj === null)) ? obj : $throwClassCastException(obj, "vycoder.Coder"))
@@ -20292,6 +20555,9 @@ $c_s_math_BigDecimal.prototype.$minus__s_math_BigDecimal__s_math_BigDecimal = (f
 $c_s_math_BigDecimal.prototype.$times__s_math_BigDecimal__s_math_BigDecimal = (function(that) {
   return new $c_s_math_BigDecimal($n(this.s_math_BigDecimal__f_bigDecimal).multiply__Ljava_math_BigDecimal__Ljava_math_MathContext__Ljava_math_BigDecimal($n(that).s_math_BigDecimal__f_bigDecimal, this.s_math_BigDecimal__f_mc), this.s_math_BigDecimal__f_mc)
 });
+$c_s_math_BigDecimal.prototype.$div__s_math_BigDecimal__s_math_BigDecimal = (function(that) {
+  return new $c_s_math_BigDecimal($n(this.s_math_BigDecimal__f_bigDecimal).divide__Ljava_math_BigDecimal__Ljava_math_MathContext__Ljava_math_BigDecimal($n(that).s_math_BigDecimal__f_bigDecimal, this.s_math_BigDecimal__f_mc), this.s_math_BigDecimal__f_mc)
+});
 $c_s_math_BigDecimal.prototype.pow__I__s_math_BigDecimal = (function(n) {
   return new $c_s_math_BigDecimal($n(this.s_math_BigDecimal__f_bigDecimal).pow__I__Ljava_math_MathContext__Ljava_math_BigDecimal(n, this.s_math_BigDecimal__f_mc), this.s_math_BigDecimal__f_mc)
 });
@@ -20336,6 +20602,10 @@ $c_s_math_BigDecimal.prototype.toBigIntExact__s_Option = (function() {
 });
 $c_s_math_BigDecimal.prototype.toString__T = (function() {
   return $n(this.s_math_BigDecimal__f_bigDecimal).toString__T()
+});
+$c_s_math_BigDecimal.prototype.compare__O__I = (function(that) {
+  var that$1 = $as_s_math_BigDecimal(that);
+  return $n(this.s_math_BigDecimal__f_bigDecimal).compareTo__Ljava_math_BigDecimal__I($n(that$1).s_math_BigDecimal__f_bigDecimal)
 });
 function $as_s_math_BigDecimal(obj) {
   return (((obj instanceof $c_s_math_BigDecimal) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.math.BigDecimal"))
@@ -20637,6 +20907,9 @@ $c_s_math_BigInt.prototype.$div__s_math_BigInt__s_math_BigInt = (function(that) 
     return $m_s_math_BigInt$().apply__Ljava_math_BigInteger__s_math_BigInt($n(this.bigInteger__Ljava_math_BigInteger()).divide__Ljava_math_BigInteger__Ljava_math_BigInteger($n(that).bigInteger__Ljava_math_BigInteger()))
   }
 });
+$c_s_math_BigInt.prototype.$less$less__I__s_math_BigInt = (function(n) {
+  return (($p_s_math_BigInt__longEncoding__Z(this) && (n <= 0)) ? this.$greater$greater__I__s_math_BigInt(((-n) | 0)) : $m_s_math_BigInt$().apply__Ljava_math_BigInteger__s_math_BigInt($n(this.bigInteger__Ljava_math_BigInteger()).shiftLeft__I__Ljava_math_BigInteger(n)))
+});
 $c_s_math_BigInt.prototype.$greater$greater__I__s_math_BigInt = (function(n) {
   if (($p_s_math_BigInt__longEncoding__Z(this) && (n >= 0))) {
     if ((n < 64)) {
@@ -20688,6 +20961,12 @@ $c_s_math_BigInt.prototype.$up__s_math_BigInt__s_math_BigInt = (function(that) {
     var bi = $n(that).bigInteger__Ljava_math_BigInteger();
     return $n($$x2).apply__Ljava_math_BigInteger__s_math_BigInt($m_Ljava_math_Logical$().xor__Ljava_math_BigInteger__Ljava_math_BigInteger__Ljava_math_BigInteger(this$2, bi))
   }
+});
+$c_s_math_BigInt.prototype.min__s_math_BigInt__s_math_BigInt = (function(that) {
+  return ($f_s_math_Ordered__$less$eq__O__Z(this, that) ? this : that)
+});
+$c_s_math_BigInt.prototype.max__s_math_BigInt__s_math_BigInt = (function(that) {
+  return ($f_s_math_Ordered__$greater$eq__O__Z(this, that) ? this : that)
 });
 $c_s_math_BigInt.prototype.unary_$minus__s_math_BigInt = (function() {
   if ($p_s_math_BigInt__longEncoding__Z(this)) {
@@ -20806,6 +21085,9 @@ $c_s_math_BigInt.prototype.toString__T = (function() {
     var this$2 = $n(this.s_math_BigInt__f__bigInteger);
     return $m_Ljava_math_Conversion$().toDecimalScaledString__Ljava_math_BigInteger__T(this$2)
   }
+});
+$c_s_math_BigInt.prototype.compare__O__I = (function(that) {
+  return this.compare__s_math_BigInt__I($as_s_math_BigInt(that))
 });
 function $as_s_math_BigInt(obj) {
   return (((obj instanceof $c_s_math_BigInt) || (obj === null)) ? obj : $throwClassCastException(obj, "scala.math.BigInt"))
@@ -31563,6 +31845,9 @@ function $p_scm_ListBuffer__locate__I__sci_$colon$colon($thiz, i) {
     return $as_sci_$colon$colon(p)
   }
 }
+function $p_scm_ListBuffer__getNext__sci_$colon$colon__sci_List($thiz, p) {
+  return ((p === null) ? $thiz.scm_ListBuffer__f_first : $n(p).sci_$colon$colon__f_next)
+}
 /** @constructor */
 function $c_scm_ListBuffer() {
   this.scm_ListBuffer__f_mutationCount = 0;
@@ -31683,6 +31968,25 @@ $c_scm_ListBuffer.prototype.update__I__O__V = (function(idx, elem) {
       this.scm_ListBuffer__f_last0 = newElem$2
     };
     $n(p).sci_$colon$colon__f_next = newElem$2
+  }
+});
+$c_scm_ListBuffer.prototype.insert__I__O__V = (function(idx, elem) {
+  $p_scm_ListBuffer__ensureUnaliased__V(this);
+  if (((idx < 0) || (idx > this.scm_ListBuffer__f_len))) {
+    throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), (((idx + " is out of bounds (min 0, max ") + (((-1) + this.scm_ListBuffer__f_len) | 0)) + ")"))
+  };
+  if ((idx === this.scm_ListBuffer__f_len)) {
+    this.addOne__O__scm_ListBuffer(elem)
+  } else {
+    var p = $p_scm_ListBuffer__locate__I__sci_$colon$colon(this, idx);
+    var this$1 = $n($p_scm_ListBuffer__getNext__sci_$colon$colon__sci_List(this, p));
+    var nx = new $c_sci_$colon$colon(elem, this$1);
+    if ((p === null)) {
+      this.scm_ListBuffer__f_first = nx
+    } else {
+      $n(p).sci_$colon$colon__f_next = nx
+    };
+    this.scm_ListBuffer__f_len = ((1 + this.scm_ListBuffer__f_len) | 0)
   }
 });
 $c_scm_ListBuffer.prototype.last__O = (function() {

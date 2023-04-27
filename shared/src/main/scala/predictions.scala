@@ -37,11 +37,11 @@ class Predictions:
       if i < lst.length then
         out = positions(i.toInt)(lst(lst.length - i - 1).toInt)
           .zip(out)
-          .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
+          .map((a, b) => distanceWeight(BigDecimal(i)) * a + b)
       else if i == 0 then
         out = positions(i.toInt)(256)
           .zip(out)
-          .map((a, b) => distanceWeight(BigDecimal(i)) * (a + b))
+          .map((a, b) => distanceWeight(BigDecimal(i)) * a + b)
 
     out = out
       .zip(frequencies)

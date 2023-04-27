@@ -32,7 +32,6 @@ class Predictions:
       alpha: BigDecimal,
       beta: BigDecimal
   )(lst: Seq[BigDecimal]): ListBuffer[BigDecimal] =
-    // println(lst)
     if !initalised then initalise()
     var out: ListBuffer[BigDecimal] = ListBuffer.fill(256)(0)
     for i <- (0 until maxDistance.toInt).reverse do

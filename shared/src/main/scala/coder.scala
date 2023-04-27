@@ -40,10 +40,6 @@ case class Coder():
 
       bits += bitsToAdd
 
-      println(
-        s"bottom: $bottom, top: $top, bits: $bits"
-      )
-
       val ranges =
         prediction(program.map(BigDecimal(_)).slice(0, i))
           .scanLeft(BigDecimal(0))(_ + _)
@@ -57,10 +53,6 @@ case class Coder():
       bottom = intedRanges(program(i).toInt)
       top = intedRanges(program(i).toInt + 1) - 1
 
-      println(
-        s"SECOND: bottom: $bottom, top: $top, bits: $bits"
-      )
-
       val differentBits = (top ^ bottom).bitLength
       val bitsToStore = bits - differentBits
 
@@ -72,10 +64,6 @@ case class Coder():
       bits = differentBits
       bottom &= pow2(bits.toInt) - 1
       top &= pow2(bits.toInt) - 1
-
-      println(
-        s"AFTER: bottom: $bottom, top: $top, bits: $bits, bits_to_store: $bitsToStore"
-      )
 
     if bottom == 0 then
       if top + 1 != pow2(bits.toInt) then out += 0

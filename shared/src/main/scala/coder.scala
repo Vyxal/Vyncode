@@ -16,7 +16,9 @@ case class Coder():
 
   // TODO Avoid doing bits.toInt just in case it exceeds Int bounds
   /** Raise 2 to the power of `bits` */
-  def pow2(bits: Int): BigInt = BigInt(1 << bits.toInt)
+  def pow2(bits: Int): BigDecimal =
+    if bits >= 0 then BigDecimal(BigInt(1) << bits.toInt)
+    else BigDecimal(1.0) / BigDecimal(BigInt(1) << -bits.toInt)
 
   def encode(
       program: Seq[Int],
@@ -35,8 +37,8 @@ case class Coder():
         minBits - (top + 1 - bottom).bitLength + 1
       if bitsToAdd < 0 then bitsToAdd = 0
 
-      bottom *= pow2(bitsToAdd)
-      top = (top + 1) * pow2(bitsToAdd) - 1
+      bottom *= pow2(bitsToAdd).toBigInt
+      top = (top + 1) * pow2(bitsToAdd).toBigInt - 1
 
       bits += bitsToAdd
 
@@ -62,8 +64,8 @@ case class Coder():
       // println(s"out: $out")
 
       bits = differentBits
-      bottom &= pow2(bits.toInt) - 1
-      top &= pow2(bits.toInt) - 1
+      bottom &= pow2(bits.toInt).toBigInt - 1
+      top &= pow2(bits.toInt).toBigInt - 1
 
     if bottom == 0 then
       if top + 1 != pow2(bits.toInt) then out += 0
@@ -71,4 +73,70 @@ case class Coder():
       out += 1
       for i <- 0 until (bits - (top - bottom + 1).bitLength) do out += 0
 
+    out.toSeq
+
+  def decode(
+      program: Seq[Int],
+      prediction: Seq[BigDecimal] => ListBuffer[BigDecimal],
+      minBits: Int = 16
+  ): Seq[Int] =
+    val out = ListBuffer[Int]()
+
+    var top: BigInt = 0
+    var bottom: BigInt = 0
+
+    var bits: BigInt = 0
+    var acc: BigInt = 0
+    var i: BigInt = 0
+    var consumed: BigInt = 0
+
+    while BigDecimal(top - bottom + 1) > pow2((i - program.length + 1).toInt) do
+
+      var bitsToAdd = minBits - (top + 1 - bottom).bitLength + 1
+      if bitsToAdd < 0 then bitsToAdd = 0
+
+      bottom *= pow2(bitsToAdd).toBigInt // 2**bits_to_add
+      top = (top + 1) * (pow2(bitsToAdd).toBigInt) - 1
+
+      var l = (program.length - i).min(bitsToAdd).max(0)
+      acc = acc * pow2(l.toInt).toBigInt + fromBin(
+        program.slice(i.toInt, (i + l).toInt)
+      ).toBigInt
+      acc *= pow2((bitsToAdd - l).toInt).toBigInt
+
+      i += bitsToAdd
+
+      /*
+              bits += bits_to_add
+
+        ranges = list(accumulate(prediction(out)))
+        ranges = [int(y) * (top+1 - bottom) // int(ranges[-1]) + bottom for y in ranges]
+       */
+
+      bits += bitsToAdd
+
+      val ranges =
+        prediction(out.toSeq.map(BigDecimal(_)))
+          .scanLeft(BigDecimal(0))(_ + _)
+          .drop(1) // cumulative sum
+      val intedRanges = ranges.map(y =>
+        y.toBigInt * (top + 1 - bottom) / ranges.last.toBigInt + bottom
+      )
+
+      // next(j for j in range(len(ranges)) if ranges[j] > acc)
+      val x = ranges.indices.find(j => intedRanges(j) > acc).get
+      out += x
+
+      intedRanges.insert(0, bottom)
+
+      bottom = intedRanges(x)
+      top = intedRanges(x + 1) - 1
+
+      val differentBits = (top ^ bottom).bitLength
+      consumed += bits - differentBits
+
+      bits = differentBits
+      bottom &= pow2(bits.toInt).toBigInt - 1
+      top &= pow2(bits.toInt).toBigInt - 1
+      acc &= pow2(bits.toInt).toBigInt - 1
     out.toSeq

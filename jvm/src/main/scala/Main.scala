@@ -29,3 +29,10 @@ object Main:
     )
 
     println(encoded.mkString)
+
+    println("Decoding...")
+
+    val decoded = coder.decode(encoded, predictionFunction)
+
+    println(decoded)
+    println(Codepage.intToVyxal(decoded).mkString)

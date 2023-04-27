@@ -20,8 +20,10 @@ class Predictions:
       for i <- row.indices do
         frequencies(row(i.toInt).toInt) += 1
         for j <- 0 until maxDistance.toInt do
-          if i - j - 1 >= 0 then
-            positions(j.toInt)((i - j - 1).toInt)(row(i.toInt).toInt) += 1
+          if (i - j - 1) >= 0 then
+            positions(j.toInt)(row((i - j - 1).toInt).toInt)(
+              row(i.toInt).toInt
+            ) += 1
           else positions(j.toInt)(256)(row(i.toInt).toInt) += 1
     pairs = positions(0)
 

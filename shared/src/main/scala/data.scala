@@ -1410,6 +1410,6 @@ case class Data():
 """
 
     // Split data on newlines
-    val programs = data.split("\n").map(_.trim).filter(_.nonEmpty)
+    val programs = data.split("\n")
     val charcodes = programs.map(_.split(",").map(_.trim.toInt))
     charcodes.map(_.toList.map(BigInt.apply(_))).toList

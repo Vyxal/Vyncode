@@ -40,27 +40,29 @@ case class Coder():
 
       bits += bitsToAdd
 
+      println(
+        s"bottom: $bottom, top: $top, bits: $bits"
+      )
+
       val ranges =
         prediction(program.map(BigDecimal(_)).slice(0, i))
           .scanLeft(BigDecimal(0))(_ + _)
           .drop(1) // cumulative sum
-      val intedRanges = ranges.map(y =>
+      val intedRanges = bottom +: ranges.map(y =>
         y.toBigInt * (top + 1 - bottom) / ranges.last.toBigInt + bottom
       )
 
-      intedRanges.insert(0, bottom)
-
-      // println(intedRanges)
+      // println(prediction(program.map(BigDecimal(_)).slice(0, i)))
 
       bottom = intedRanges(program(i).toInt)
       top = intedRanges(program(i).toInt + 1) - 1
 
+      println(
+        s"SECOND: bottom: $bottom, top: $top, bits: $bits"
+      )
+
       val differentBits = (top ^ bottom).bitLength
       val bitsToStore = bits - differentBits
-
-      // println(
-      //  s"bottom: $bottom, top: $top, bits: $bits, bits_to_store: $bitsToStore"
-      // )
 
       // println(binList(top.toInt, bits.toInt))
       out ++= binList(top.toInt, bits.toInt).slice(0, bitsToStore.toInt)
@@ -71,9 +73,9 @@ case class Coder():
       bottom &= pow2(bits.toInt) - 1
       top &= pow2(bits.toInt) - 1
 
-      // println(
-      //  s"AFTER: bottom: $bottom, top: $top, bits: $bits, bits_to_store: $bitsToStore"
-      // )
+      println(
+        s"AFTER: bottom: $bottom, top: $top, bits: $bits, bits_to_store: $bitsToStore"
+      )
 
     if bottom == 0 then
       if top + 1 != pow2(bits.toInt) then out += 0

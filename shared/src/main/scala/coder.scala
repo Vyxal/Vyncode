@@ -3,10 +3,10 @@ package vycoder
 import scala.collection.mutable.ListBuffer
 
 case class Coder():
-  def binList(x: Int, len: Int): Seq[Int] =
+  def binList(x: BigInt, len: Int): Seq[Int] =
     // Scala equivalent of the following python:
     // return [int(bool(x & (2**n))) for n in reversed(range(len))]
-    len - 1 to 0 by -1 map (i => x >> i & 1)
+    len - 1 to 0 by -1 map (i => (x.>>(i) & 1).toInt)
 
   def fromBin(x: Seq[Int]): BigDecimal =
     // Scala equivalent on the following python:
@@ -81,6 +81,6 @@ case class Coder():
       if top + 1 != pow2(bits.toInt) then out += 0
     else
       out += 1
-      for i <- 0 until (bits - (top - bottom + 1)).bitLength do out += 0
+      for i <- 0 until (bits - (top - bottom + 1).bitLength) do out += 0
 
     out.toSeq

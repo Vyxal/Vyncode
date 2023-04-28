@@ -10,13 +10,15 @@ given Conversion[Int, BigDecimal] with
 object JSVycoder:
 
   var version: Int = 1
+  val versions: Seq[Int] = Seq(1)
   var predictionObj: Predictions = Predictions()
   var initalised: Boolean = false
 
   @JSExport
   def setVersion(ver: Int): Unit =
+    if !versions.contains(ver) then throw new Exception("Invalid version")
     version = ver
-    predictionObj.initalise()
+    predictionObj.initalise(ver)
     initalised = true
 
   @JSExport
@@ -24,7 +26,7 @@ object JSVycoder:
 
   @JSExport
   def initalise(): Unit =
-    predictionObj.initalise()
+    predictionObj.initalise(version)
     initalised = true
 
   @JSExport

@@ -12,10 +12,12 @@ class Predictions:
 
   var initalised: Boolean = false
   var pairs: ListBuffer[ListBuffer[BigDecimal]] = ListBuffer()
+  var version: Int = 1
 
-  def initalise(): Unit =
+  def initalise(ver: Int): Unit =
     initalised = true
-    val programs = Data().getData()
+    version = ver // unused for now, but may be used in the future
+    val programs = Data().getData() // This may change based on version
     for row <- programs do
       for i <- row.indices do
         frequencies(row(i.toInt).toInt) += 1
@@ -32,7 +34,7 @@ class Predictions:
       alpha: BigDecimal,
       beta: BigDecimal
   )(lst: Seq[BigDecimal]): ListBuffer[BigDecimal] =
-    if !initalised then initalise()
+    if !initalised then initalise(version)
     var out: ListBuffer[BigDecimal] = ListBuffer.fill(256)(0)
     for i <- (0 until maxDistance.toInt).reverse do
       if i < lst.length then

@@ -10,7 +10,8 @@ object Main:
   def main(args: Array[String]): Unit =
     val coder = Coder()
     val predictionObj = Predictions()
-    predictionObj.initalise()
+    predictionObj.initalise(1) // No need for configuration, as
+    // python calls the js version for that
 
     val predictionFunction = predictionObj.weightedPositions(
       (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),

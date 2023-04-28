@@ -1,5 +1,5 @@
 # Vyncode
-Vyxal but it's a fracitonal byte compressor
+Vyxal but it's a fractional byte compressor
 
 
 ## Offline usage:

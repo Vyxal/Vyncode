@@ -8,32 +8,4 @@ given Conversion[Int, BigDecimal] with
 
 object Main:
   def main(args: Array[String]): Unit =
-    val coder = Coder()
-    val predictionObj = Predictions()
-    predictionObj.initalise(1) // No need for configuration, as
-    // python calls the js version for that
-
-    val predictionFunction = predictionObj.weightedPositions(
-      (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),
-      32,
-      128
-    )
-    // Read program from stdin
-
-    val program = Codepage.vyxalToInt(StdIn.readLine())
-    val encoded = coder.encode(program, predictionFunction)
-
-    // print(f"input size: {len(int_lst)*8} bits ({len(int_lst)} bytes), output size: {len(bin_lst)} bits ({len(bin_lst)/8} bytes), ratio: {len(bin_lst)/(len(int_lst)*8)}")
-
-    println(
-      s"input size: ${program.length * 8} bits (${program.length} bytes), output size: ${encoded.length} bits (${encoded.length / 8f} bytes), ratio: ${encoded.length / (program.length * 8f)}"
-    )
-
-    println(encoded.mkString)
-
-    println("Decoding...")
-
-    val decoded = coder.decode(encoded, predictionFunction)
-
-    println(decoded)
-    println(Codepage.intToVyxal(decoded).mkString)
+    CLI.run(args)

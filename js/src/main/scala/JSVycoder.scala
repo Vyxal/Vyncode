@@ -8,11 +8,29 @@ given Conversion[Int, BigDecimal] with
 
 @JSExportTopLevel("Vycoder")
 object JSVycoder:
+
+  var version: Int = 1
+  var predictionObj: Predictions = Predictions()
+  var initalised: Boolean = false
+
+  @JSExport
+  def setVersion(ver: Int): Unit =
+    version = ver
+    predictionObj.initalise()
+    initalised = true
+
+  @JSExport
+  def getVersion(): Int = version
+
+  @JSExport
+  def initalise(): Unit =
+    predictionObj.initalise()
+    initalised = true
+
   @JSExport
   def encode(code: String): String =
+    if !initalised then throw new Exception("Vyncode not initalised")
     val coder = Coder()
-    val predictionObj = Predictions()
-    predictionObj.initalise()
 
     val predictionFunction = predictionObj.weightedPositions(
       (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),
@@ -28,9 +46,8 @@ object JSVycoder:
 
   @JSExport
   def decode(bits: String): String =
+    if !initalised then throw new Exception("Vyncode not initalised")
     val coder = Coder()
-    val predictionObj = Predictions()
-    predictionObj.initalise()
 
     val predictionFunction = predictionObj.weightedPositions(
       (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),

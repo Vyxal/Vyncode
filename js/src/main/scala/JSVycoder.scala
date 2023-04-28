@@ -1,4 +1,4 @@
-package vycoder
+package vyncode
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
@@ -6,8 +6,8 @@ import scala.scalajs.js.JSConverters.*
 given Conversion[Int, BigDecimal] with
   def apply(i: Int): BigDecimal = BigDecimal(i)
 
-@JSExportTopLevel("Vycoder")
-object JSVycoder:
+@JSExportTopLevel("Vyncode")
+object JSVyncode:
 
   var version: Int = 1
   val versions: Seq[Int] = Seq(1)

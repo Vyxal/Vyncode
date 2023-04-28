@@ -1,4 +1,4 @@
-package vycoder
+package vyncode
 
 given Conversion[Int, BigInt] with
   def apply(i: Int): BigInt = BigInt(i)

@@ -1,4 +1,4 @@
-package vycoder
+package vyncode
 import scopt.OParser
 object CLI:
   enum Method:

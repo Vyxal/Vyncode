@@ -1,4 +1,4 @@
-package vycoder
+package vyncode
 
 import scala.io.StdIn
 import scala.collection.mutable.ListBuffer

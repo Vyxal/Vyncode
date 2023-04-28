@@ -1,7 +1,7 @@
 //TODO clean this file up
 // enablePlugins(ScalaJSPlugin)
 
-val vycoderVersion = "1.0.0"
+val vyncodeVersion = "1.0.0"
 
 ThisBuild / scalaVersion := "3.2.2"
 
@@ -12,18 +12,18 @@ import org.scalajs.linker.interface.OutputPatterns
 
 lazy val root: Project = project
   .in(file("."))
-  .aggregate(vycoder.js, vycoder.jvm)
+  .aggregate(vyncode.js, vyncode.jvm)
   .settings(
     publish := {},
     publishLocal := {}
   )
 
-lazy val vycoder = crossProject(JSPlatform, JVMPlatform)
+lazy val vyncode = crossProject(JSPlatform, JVMPlatform)
   .in(file("."))
   .settings(
     // Shared settings
-    name := "vycoder",
-    version := vycoderVersion,
+    name := "vyncode",
+    version := vyncodeVersion,
     semanticdbEnabled := true,
     libraryDependencies ++= Seq(
       // For number stuff
@@ -49,7 +49,7 @@ lazy val vycoder = crossProject(JSPlatform, JVMPlatform)
     Compile / doc / target := file("docs"),
     Compile / doc / scalacOptions ++= Seq(
       "-project-version",
-      vycoderVersion,
+      vyncodeVersion,
       "-groups", // Group similar functions
       "-Ygenerate-inkuire", // Allow type-based searches
       "-external-mappings:.*vyxal.*::scaladoc3::https://vyxal.github.io/Vyxal/docs/",
@@ -64,9 +64,9 @@ lazy val vycoder = crossProject(JSPlatform, JVMPlatform)
   )
   .jvmSettings(
     // JVM-specific settings
-    Compile / mainClass := Some("vycoder.Main"),
-    assembly / mainClass := Some("vycoder.Main"),
-    assembly / assemblyJarName := s"vycoder-$vycoderVersion.jar",
+    Compile / mainClass := Some("vyncode.Main"),
+    assembly / mainClass := Some("vyncode.Main"),
+    assembly / assemblyJarName := s"vyncode.jar",
     // Necessary for tests to be able to access src/main/resources
     Test / fork := true
   )
@@ -76,6 +76,6 @@ lazy val vycoder = crossProject(JSPlatform, JVMPlatform)
       "org.scala-js" %%% "scalajs-dom" % "2.4.0"
     ),
     // Where the compiled JS is output
-    Compile / fastOptJS / artifactPath := baseDirectory.value.getParentFile / "pages" / "vycoder.js",
-    Compile / fullOptJS / artifactPath := baseDirectory.value.getParentFile / "pages" / "vycoder.js"
+    Compile / fastOptJS / artifactPath := baseDirectory.value.getParentFile / "pages" / "vyncode.js",
+    Compile / fullOptJS / artifactPath := baseDirectory.value.getParentFile / "pages" / "vyncode.js"
   )

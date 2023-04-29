@@ -18,6 +18,12 @@ class Predictions:
     initalised = true
     version = ver // unused for now, but may be used in the future
     val programs = Data().getData() // This may change based on version
+
+    frequencies = ListBuffer.fill(256)(0)
+    positions = ListBuffer.fill(maxDistance.toInt)(
+      ListBuffer.fill(257)(ListBuffer.fill(256)(0))
+    )
+
     for row <- programs do
       for i <- row.indices do
         frequencies(row(i.toInt).toInt) += 1

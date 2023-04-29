@@ -91,7 +91,6 @@ case class Coder():
     var consumed: BigInt = 0
 
     while BigDecimal(top - bottom + 1) > pow2((i - program.length + 1).toInt) do
-
       var bitsToAdd = minBits - (top + 1 - bottom).bitLength + 1
       if bitsToAdd < 0 then bitsToAdd = 0
 

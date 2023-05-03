@@ -6,6 +6,12 @@ Vyncode uses a [range coder](https://en.wikipedia.org/wiki/Range_coding) that ha
 
 This document will serve as a Q&A guide for any questions you have about how Vyncode works, or how it's used in code golf answers. It will be updated as needed if people have commonly asked questions or more information emerges about the system. 
 
+## Q: How does Vyncode Work With the Code Golf StackExchange?
+
+Vyncode works by taking a program written in SBCS and converting it to a string of bits via a range coding compression method. This bitstring is what determines the score for code golf answers. The answer template generator converts bitstrings to sbcs form for answers for the sake of people reading the answer on the site. Because a long string of 50-200 bits doesn't really give an idea of what the program is actually doing.
+
+So technically, you're submitting the bitstring, but it's been formatted for brevity. The ! flag makes that more explicit, while the = makes that more implicit.
+
 ## Q: How do I use Vyncode?
 
 Firstly, you can use sbt to run Vyncode from scala:

@@ -5,7 +5,7 @@ object CLI:
     case Encode, Decode
   case class CLIConfig(
       method: Method = Method.Encode,
-      version: Int = 1,
+      version: Int = 2,
       input: Option[String] = None
   )
 
@@ -14,7 +14,7 @@ object CLI:
     import builder.*
     OParser.sequence(
       programName("Vyncoder"),
-      head("Vyncoder", "1.0"),
+      head("Vyncoder", "2.0"),
       opt[Unit]('h', "help")
         .action((_, cfg) =>
           println("Vyncoder - A Vyxal encoder/decoder")

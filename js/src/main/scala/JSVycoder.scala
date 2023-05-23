@@ -9,16 +9,17 @@ given Conversion[Int, BigDecimal] with
 @JSExportTopLevel("Vyncode")
 object JSVyncode:
 
-  var version: Int = 1
-  val versions: Seq[Int] = Seq(1)
+  var version: Int = 2
+  val versions: Seq[Int] = Seq(1, 2)
   var predictionObj: Predictions = Predictions()
   var initalised: Boolean = false
 
   @JSExport
   def setVersion(ver: Int): Unit =
-    if !versions.contains(ver) then throw new Exception("Invalid version")
-    version = ver
-    predictionObj.initalise(ver)
+    if ver == -1 then version = versions.max
+    else if !versions.contains(ver) then throw new Exception("Invalid version")
+    else version = ver
+    predictionObj.initalise(version)
     initalised = true
 
   @JSExport

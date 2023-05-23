@@ -12,12 +12,12 @@ class Predictions:
 
   var initalised: Boolean = false
   var pairs: ListBuffer[ListBuffer[BigDecimal]] = ListBuffer()
-  var version: Int = 1
+  var version: Int = 2
 
   def initalise(ver: Int): Unit =
     initalised = true
     version = ver // unused for now, but may be used in the future
-    val programs = Data().getData() // This may change based on version
+    val programs = Data().getData(version) // This may change based on version
 
     frequencies = ListBuffer.fill(256)(0)
     positions = ListBuffer.fill(maxDistance.toInt)(

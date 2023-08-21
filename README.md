@@ -20,7 +20,7 @@ Firstly, you can use sbt to run Vyncode from scala:
 sbt vyncodeJVM/run -m <method> -v <version> -p <program>
 ```
 
-`method` is one of `encode` or `decode` (`encode is used by default).
+`method` is one of `encode` or `decode` (`encode` is used by default).
 
 `version` is the version of Vyncode to use. This defaults to the latest version and is not a necessary parameter. 
 

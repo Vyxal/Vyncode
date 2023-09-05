@@ -6,8 +6,7 @@ object Coder:
   def binList(x: BigInt, len: Int): Seq[Int] =
     // Scala equivalent of the following python:
     // return [int(bool(x & (2**n))) for n in reversed(range(len))]
-    // TODO lyxal, I'm not sure .toInt does the same thing as int(bool())
-    len - 1 to 0 by -1 map (i => ((x >> i.toInt) & 1).toInt)
+    len - 1 to 0 by -1 map (i => ((x >> i) & 1).toInt)
 
   def fromBin(x: Seq[Int]): BigDecimal =
     // Scala equivalent on the following python:

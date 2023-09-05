@@ -3,7 +3,7 @@
 
 val vyncodeVersion = "1.0.0"
 
-ThisBuild / scalaVersion := "3.2.2"
+ThisBuild / scalaVersion := "3.3.0"
 
 //Automatically reload SBT when build.sbt changes
 Global / onChangedBuildSource := ReloadOnSourceChanges
@@ -43,7 +43,8 @@ lazy val vyncode = crossProject(JSPlatform, JVMPlatform)
       "-language:implicitConversions",
       "-language:adhocExtensions",
       // "-explain",
-      "-print-lines"
+      "-print-lines",
+      "-Wunused:all"
     ),
     // Configure Scaladoc
     Compile / doc / target := file("docs"),

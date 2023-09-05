@@ -1,12 +1,15 @@
 package vyncode
+
 import scopt.OParser
+
 object CLI:
   enum Method:
     case Encode, Decode
+
   case class CLIConfig(
       method: Method = Method.Encode,
       version: Int = 2,
-      input: Option[String] = None
+      input: Option[String] = None,
   )
 
   private val builder = OParser.builder[CLIConfig]
@@ -38,36 +41,39 @@ object CLI:
         .optional(),
       opt[String]('p', "program")
         .action((p, cfg) => cfg.copy(input = Some(p)))
-        .text("The program to encode/decode")
+        .text("The program to encode/decode"),
     )
+  end parser
 
   def run(args: Array[String]): Unit =
     OParser.parse(parser, args, CLIConfig()) match
       case Some(config) =>
         val predictionObject = Predictions()
-        predictionObject.initalise(config.version)
-        val coder = Coder()
+        predictionObject.initialise(config.version)
         val predictionFunction = predictionObject.weightedPositions(
           (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),
           32,
-          128
+          128,
         )
         val program = config.input.get
         config.method match
           case Method.Encode =>
-            val encoded = coder.encode(
+            val encoded = Coder.encode(
               Codepage.vyxalToInt(program),
-              predictionFunction
+              predictionFunction,
             )
             println(
-              s"input size: ${config.input.get.length * 8} bits (${config.input.get.length} bytes), output size: ${encoded.length} bits (${encoded.length / 8f} bytes), ratio: ${encoded.length / (config.input.get.length * 8f)}"
+              s"input size: ${config.input.get.length * 8} bits (${config.input.get.length} bytes), output size: ${encoded.length} bits (${encoded.length /
+                  8f} bytes), ratio: ${encoded.length / (config.input.get.length * 8f)}"
             )
             println(encoded.mkString)
           case Method.Decode =>
             val bits = program.split("").map(_.toInt).toIndexedSeq
-            val decoded = coder.decode(
+            val decoded = Coder.decode(
               bits,
-              predictionFunction
+              predictionFunction,
             )
             println(Codepage.intToVyxal(decoded).mkString)
+        end match
       case None => ???
+end CLI

@@ -2,28 +2,28 @@ package vyncode
 
 import scala.collection.mutable.ListBuffer
 
-case class Coder():
+object Coder:
   def binList(x: BigInt, len: Int): Seq[Int] =
     // Scala equivalent of the following python:
     // return [int(bool(x & (2**n))) for n in reversed(range(len))]
-    len - 1 to 0 by -1 map (i => (x.>>(i) & 1).toInt)
+    // TODO lyxal, I'm not sure .toInt does the same thing as int(bool())
+    len - 1 to 0 by -1 map (i => ((x >> i.toInt) & 1).toInt)
 
   def fromBin(x: Seq[Int]): BigDecimal =
     // Scala equivalent on the following python:
     // return int("".join(str(b) for b in x), base=2) if len(x) else 0
 
-    if x.length == 0 then 0 else BigDecimal(BigInt(x.mkString, 2))
+    if x.isEmpty then 0 else BigDecimal(BigInt(x.mkString, 2))
 
-  // TODO Avoid doing bits.toInt just in case it exceeds Int bounds
   /** Raise 2 to the power of `bits` */
   def pow2(bits: Int): BigDecimal =
-    if bits >= 0 then BigDecimal(BigInt(1) << bits.toInt)
-    else BigDecimal(1.0) / BigDecimal(BigInt(1) << -bits.toInt)
+    if bits >= 0 then BigDecimal(BigInt(1) << bits)
+    else BigDecimal(1.0) / BigDecimal(BigInt(1) << -bits)
 
   def encode(
       program: Seq[Int],
       prediction: Seq[BigDecimal] => ListBuffer[BigDecimal],
-      minBits: Int = 16
+      minBits: Int = 16,
   ): Seq[Int] =
     val out = ListBuffer[Int]()
 
@@ -33,8 +33,7 @@ case class Coder():
     var bits: BigInt = 0
 
     for i <- program.indices do
-      var bitsToAdd: Int =
-        minBits - (top + 1 - bottom).bitLength + 1
+      var bitsToAdd: Int = minBits - (top + 1 - bottom).bitLength + 1
       if bitsToAdd < 0 then bitsToAdd = 0
 
       bottom *= pow2(bitsToAdd).toBigInt
@@ -42,13 +41,13 @@ case class Coder():
 
       bits += bitsToAdd
 
-      val ranges =
-        prediction(program.map(BigDecimal(_)).slice(0, i))
-          .scanLeft(BigDecimal(0))(_ + _)
-          .drop(1) // cumulative sum
-      val intedRanges = bottom +: ranges.map(y =>
-        y.toBigInt * (top + 1 - bottom) / ranges.last.toBigInt + bottom
-      )
+      val ranges = prediction(program.map(BigDecimal(_)).slice(0, i))
+        .scanLeft(BigDecimal(0))(_ + _)
+        .drop(1) // cumulative sum
+      val intedRanges = bottom +:
+        ranges.map(y =>
+          y.toBigInt * (top + 1 - bottom) / ranges.last.toBigInt + bottom
+        )
 
       // println(prediction(program.map(BigDecimal(_)).slice(0, i)))
 
@@ -66,19 +65,21 @@ case class Coder():
       bits = differentBits
       bottom &= pow2(bits.toInt).toBigInt - 1
       top &= pow2(bits.toInt).toBigInt - 1
+    end for
 
     if bottom == 0 then
       if top + 1 != pow2(bits.toInt) then out += 0
     else
       out += 1
-      for i <- 0 until (bits - (top - bottom + 1).bitLength) do out += 0
+      for i <- BigInt(0) until (bits - (top - bottom + 1).bitLength) do out += 0
 
     out.toSeq
+  end encode
 
   def decode(
       program: Seq[Int],
       prediction: Seq[BigDecimal] => ListBuffer[BigDecimal],
-      minBits: Int = 16
+      minBits: Int = 16,
   ): Seq[Int] =
     val out = ListBuffer[Int]()
 
@@ -98,9 +99,10 @@ case class Coder():
       top = (top + 1) * (pow2(bitsToAdd).toBigInt) - 1
 
       var l = (program.length - i).min(bitsToAdd).max(0)
-      acc = acc * pow2(l.toInt).toBigInt + fromBin(
-        program.slice(i.toInt, (i + l).toInt)
-      ).toBigInt
+      acc = acc * pow2(l.toInt).toBigInt +
+        fromBin(
+          program.slice(i.toInt, (i + l).toInt)
+        ).toBigInt
       acc *= pow2((bitsToAdd - l).toInt).toBigInt
 
       i += bitsToAdd
@@ -114,10 +116,9 @@ case class Coder():
 
       bits += bitsToAdd
 
-      val ranges =
-        prediction(out.toSeq.map(BigDecimal(_)))
-          .scanLeft(BigDecimal(0))(_ + _)
-          .drop(1) // cumulative sum
+      val ranges = prediction(out.toSeq.map(BigDecimal(_)))
+        .scanLeft(BigDecimal(0))(_ + _)
+        .drop(1) // cumulative sum
       val intedRanges = ranges.map(y =>
         y.toBigInt * (top + 1 - bottom) / ranges.last.toBigInt + bottom
       )
@@ -138,4 +139,7 @@ case class Coder():
       bottom &= pow2(bits.toInt).toBigInt - 1
       top &= pow2(bits.toInt).toBigInt - 1
       acc &= pow2(bits.toInt).toBigInt - 1
+    end while
     out.toSeq
+  end decode
+end Coder

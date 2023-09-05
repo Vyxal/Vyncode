@@ -1,11 +1,7 @@
 package vyncode
 
-import scala.io.StdIn
 import scala.collection.mutable.ListBuffer
-
-given Conversion[Int, BigDecimal] with
-  def apply(i: Int): BigDecimal = BigDecimal(i)
+import scala.io.StdIn
 
 object Main:
-  def main(args: Array[String]): Unit =
-    CLI.run(args)
+  def main(args: Array[String]): Unit = CLI.run(args)

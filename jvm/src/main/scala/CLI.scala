@@ -48,8 +48,7 @@ object CLI:
   def run(args: Array[String]): Unit =
     OParser.parse(parser, args, CLIConfig()) match
       case Some(config) =>
-        val predictionObject = Predictions()
-        predictionObject.initialise(config.version)
+        val predictionObject = Predictions(config.version)
         val predictionFunction = predictionObject.weightedPositions(
           (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),
           32,

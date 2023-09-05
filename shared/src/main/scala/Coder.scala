@@ -21,7 +21,7 @@ object Coder:
 
   def encode(
       program: Seq[Int],
-      prediction: Seq[BigDecimal] => ListBuffer[BigDecimal],
+      prediction: Seq[BigDecimal] => Seq[BigDecimal],
       minBits: Int = 16,
   ): Seq[Int] =
     val out = ListBuffer[Int]()
@@ -77,7 +77,7 @@ object Coder:
 
   def decode(
       program: Seq[Int],
-      prediction: Seq[BigDecimal] => ListBuffer[BigDecimal],
+      prediction: Seq[BigDecimal] => Seq[BigDecimal],
       minBits: Int = 16,
   ): Seq[Int] =
     val out = ListBuffer[Int]()
@@ -120,7 +120,7 @@ object Coder:
         .drop(1) // cumulative sum
       val intedRanges = ranges.map(y =>
         y.toBigInt * (top + 1 - bottom) / ranges.last.toBigInt + bottom
-      )
+      ).to(ListBuffer)
 
       // next(j for j in range(len(ranges)) if ranges[j] > acc)
       val x = ranges.indices.find(j => intedRanges(j) > acc).get

@@ -4,33 +4,14 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
 @JSExportTopLevel("Vyncode")
-object JSVyncode:
+class JSVyncode(version: Int = 2):
+  if !JSVyncode.versions.contains(version) then
+    throw new IllegalArgumentException("Invalid version")
 
-  var version: Int = 2
-  val versions: Seq[Int] = Seq(1, 2)
-  var predictionObj: Predictions = Predictions()
-  var initialised: Boolean = false
-
-  @JSExport
-  def setVersion(ver: Int): Unit =
-    if ver == -1 then version = versions.max
-    else if !versions.contains(ver) then throw new Exception("Invalid version")
-    else version = ver
-    predictionObj.initialise(version)
-    initialised = true
-
-  @JSExport
-  def getVersion(): Int = version
-
-  @JSExport
-  def initialise(): Unit =
-    predictionObj.initialise(version)
-    initialised = true
+  private val predictionObj = Predictions(version)
 
   @JSExport
   def encode(code: String): String =
-    if !initialised then throw new Exception("Vyncode not initialised")
-
     val predictionFunction = predictionObj.weightedPositions(
       (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),
       32,
@@ -45,8 +26,6 @@ object JSVyncode:
 
   @JSExport
   def decode(bits: String): String =
-    if !initialised then throw new Exception("Vyncode not initialised")
-
     val predictionFunction = predictionObj.weightedPositions(
       (x: BigDecimal) => BigDecimal("0.5").pow(x.toInt),
       32,
@@ -59,3 +38,6 @@ object JSVyncode:
 
     Codepage.intToVyxal(decoded).mkString
 end JSVyncode
+
+object JSVyncode:
+  val versions: Seq[Int] = Seq(1, 2)
